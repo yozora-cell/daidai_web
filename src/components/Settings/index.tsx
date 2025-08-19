@@ -15,7 +15,7 @@ import useWalletSupportsOpenMev from 'app/hooks/useWalletSupportsOpenMev'
 import { useActiveWeb3React } from 'app/services/web3'
 import { useToggleSettingsMenu } from 'app/state/application/hooks'
 import { useExpertModeManager, useUserOpenMev, useUserSingleHopOnly } from 'app/state/user/hooks'
-import React, { FC, useState } from 'react'
+import { FC, useState } from 'react'
 
 import { OPENMEV_ENABLED, OPENMEV_SUPPORTED_NETWORKS } from '../../config/openmev'
 
@@ -80,7 +80,7 @@ const SettingsTab: FC<SettingsTabProps> = ({ placeholderSlippage, className, tri
                   }
                   checkedIcon={<CheckIcon className="text-dark-700" />}
                   uncheckedIcon={<CloseIcon />}
-                  color="gradient"
+                  // color="gradient"
                 />
               </div>
               {!trident && (
@@ -98,7 +98,7 @@ const SettingsTab: FC<SettingsTabProps> = ({ placeholderSlippage, className, tri
                     onChange={() => (singleHopOnly ? setSingleHopOnly(false) : setSingleHopOnly(true))}
                     checkedIcon={<CheckIcon className="text-dark-700" />}
                     uncheckedIcon={<CloseIcon />}
-                    color="gradient"
+                    // color="gradient"
                   />
                 </div>
               )}
@@ -118,7 +118,7 @@ const SettingsTab: FC<SettingsTabProps> = ({ placeholderSlippage, className, tri
                     onChange={() => (userUseOpenMev ? setUserUseOpenMev(false) : setUserUseOpenMev(true))}
                     checkedIcon={<CheckIcon className="text-dark-700" />}
                     uncheckedIcon={<CloseIcon />}
-                    color="gradient"
+                    // color="gradient"
                   />
                 </div>
               )}

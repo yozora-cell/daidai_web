@@ -7,28 +7,29 @@ import AlertPopup from './AlertPopup'
 import TransactionPopup from './TransactionPopup'
 
 // @ts-ignore TYPE NEEDS FIXING
-const AnimatedFader = ({ duration }) => (
-  <div className="h-[3px] bg-base-100 w-full">
-    <style jsx>{`
-      .animation {
-        animation-duration: ${duration}ms;
-        animation-name: fader;
-        animation-timing-function: linear;
-        animation-fill-mode: forwards;
-      }
-      @keyframes fader {
-        from {
-          width: 100%;
-        }
-
-        to {
-          width: 0%;
-        }
-      }
-    `}</style>
-    <div className="animation h-[3px] bg-gradient-to-r from-base-100 to-base-300" />
-  </div>
-)
+const AnimatedFader = ({ duration }) => {
+  return (
+    <div className="h-[3px] bg-dark-800 w-full">
+      <div
+        className="h-[3px] bg-gradient-to-r from-blue to-pink"
+        style={{
+          width: '100%',
+          animationDuration: `${duration}ms`,
+          animationName: 'fader',
+          animationTimingFunction: 'linear',
+          animationFillMode: 'forwards',
+        }}
+      />
+      {/* Keyframes can be defined in a global CSS file or in tailwind.config.js */}
+      {/* For simplicity, if not already global, add this to your global styles:
+          @keyframes fader {
+            from { width: 100%; }
+            to { width: 0%; }
+          }
+      */}
+    </div>
+  )
+}
 
 export default function PopupItem({
   removeAfterMs,
@@ -69,10 +70,10 @@ export default function PopupItem({
 
   return (
     <div className="mb-4">
-      <div className="relative w-full overflow-hidden rounded shadow-lg bg-base-100">
+      <div className="relative w-full overflow-hidden rounded shadow-lg bg-dark-900">
         <div className="flex flex-row w-full p-4">
           {popupContent}
-          <div className="cursor-pointer hover:text-info">
+          <div className="cursor-pointer hover:text-white">
             <XIcon width={24} height={24} onClick={removeThisPopup} />
           </div>
         </div>

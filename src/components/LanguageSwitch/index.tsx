@@ -74,19 +74,17 @@ export default function LangSwitcher({
         >
           {locales?.map((l, index) => {
             return (
-              <Menu.Item
-                onClick={() => {
-                  cookieCutter.set('NEXT_LOCALE', l)
-                  push(asPath, undefined, { locale: l })
-                }}
-                key={index}
-              >
+              <Menu.Item key={index}>
                 {({ active }) => {
                   return (
                     <Typography
                       variant="sm"
                       weight={700}
-                      className={classNames('px-4 py-2 cursor-pointer hover:bg-base-200 text-base-content')}
+                      onClick={() => {
+                        cookieCutter.set('NEXT_LOCALE', l)
+                        push(asPath, undefined, { locale: l })
+                      }}
+                      className={classNames('px-4 py-2 cursor-pointer text-base-content', active ? 'bg-base-200' : '')}
                     >
                       {LANG_TO_COUNTRY[l]}
                     </Typography>

@@ -7,19 +7,15 @@ interface DotsProps {
 
 export default function Dots({ children = <span />, className }: DotsProps) {
   return (
-    <>
-      <style jsx>
-        {`
-          .dots::after {
-            content: '.';
-          }
-        `}
-      </style>
-      <span
-        className={classNames('after:inline-block dots after:animate-ellipsis after:w-4 after:text-left', className)}
-      >
-        {children}
-      </span>
-    </>
+    <span
+      // The dots are now created using pseudo-elements directly with Tailwind classes.
+      // The content will be '.', '..', '...' through animation.
+      className={classNames(
+        "after:content-['.'] after:inline-block after:animate-ellipsis after:w-4 after:text-left",
+        className
+      )}
+    >
+      {children}
+    </span>
   )
 }

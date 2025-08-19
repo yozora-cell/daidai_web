@@ -644,14 +644,14 @@ const Item = ({
                                     <div className="">
                                       {planList.map((item) => {
                                         return (
-                                          <Menu.Item
-                                            key={item.index}
-                                            onClick={() => {
-                                              onPlanSelect(item)
-                                            }}
-                                          >
+                                          <Menu.Item key={item.index}>
                                             {({ active }) => (
-                                              <div className="flex flex-row justify-between p-4 cursor-pointer hover:bg-base-300">
+                                              <div
+                                                className="flex flex-row justify-between p-4 cursor-pointer hover:bg-base-300"
+                                                onClick={() => {
+                                                  onPlanSelect(item)
+                                                }}
+                                              >
                                                 <div className="flex flex-row items-center gap-3">
                                                   <CurrencyLogo currency={item.price.currency}></CurrencyLogo>
                                                   <Typography variant="base">{item.token.symbol}</Typography>

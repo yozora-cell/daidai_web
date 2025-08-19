@@ -148,17 +148,25 @@ const formatBuckets = (buckets: PoolBucketQueryResult[]): PoolBucket[] =>
 
 // @ts-ignore TYPE NEEDS FIXING
 export const getPoolHourBuckets = async (chainId: ChainId = ChainId.ETHEREUM, variables): Promise<PoolBucket[]> => {
-  const result: PoolBucketQueryResult[] = Object.values(
-    await fetcher(chainId, poolHourSnapshotsQuery, variables)
-  )?.[0] as PoolBucketQueryResult[]
+  // Provide a specific type for the fetcher's return value
+  const fetcherResult = await fetcher<{ poolHourSnapshots: PoolBucketQueryResult[] }>(
+    chainId,
+    poolHourSnapshotsQuery,
+    variables
+  )
+  const result = fetcherResult?.poolHourSnapshots ?? []
   return formatBuckets(result)
 }
 
 // @ts-ignore TYPE NEEDS FIXING
 export const getPoolDayBuckets = async (chainId: ChainId = ChainId.ETHEREUM, variables): Promise<PoolBucket[]> => {
-  const result: PoolBucketQueryResult[] = Object.values(
-    await fetcher(chainId, poolDaySnapshotsQuery, variables)
-  )?.[0] as PoolBucketQueryResult[]
+  // Provide a specific type for the fetcher's return value
+  const fetcherResult = await fetcher<{ poolDaySnapshots: PoolBucketQueryResult[] }>(
+    chainId,
+    poolDaySnapshotsQuery,
+    variables
+  )
+  const result = fetcherResult?.poolDaySnapshots ?? []
   return formatBuckets(result)
 }
 
@@ -212,15 +220,13 @@ const formatKpi = ({
 
 // @ts-ignore TYPE NEEDS FIXING
 export const getPoolKpis = async (chainId: ChainId = ChainId.ETHEREUM, variables = {}): Promise<PoolKpi[]> => {
-  const result: PoolKpiQueryResult[] = Object.values(
-    await fetcher(chainId, poolKpisQuery, variables)
-  )?.[0] as PoolKpiQueryResult[]
+  const fetcherResult = await fetcher(chainId, poolKpisQuery, variables) as Record<string, PoolKpiQueryResult[]>
+  const result: PoolKpiQueryResult[] = Object.values(fetcherResult)?.[0] as PoolKpiQueryResult[]
   return result.map(formatKpi)
 }
 
 export const getPoolKpi = async (chainId: ChainId = ChainId.ETHEREUM, variables = {}): Promise<PoolKpi> => {
-  const result: PoolKpiQueryResult = Object.values(
-    await fetcher(chainId, poolKpiQuery, variables)
-  )?.[0] as PoolKpiQueryResult
+  const fetcherResult = await fetcher(chainId, poolKpiQuery, variables) as Record<string, PoolKpiQueryResult>
+  const result: PoolKpiQueryResult = Object.values(fetcherResult)?.[0] as PoolKpiQueryResult
   return formatKpi(result)
 }

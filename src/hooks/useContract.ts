@@ -4,7 +4,6 @@ import {
   BAR_ADDRESS,
   BENTOBOX_ADDRESS,
   BORING_HELPER_ADDRESS,
-  CHAIN_KEY,
   ChainId,
   CHAINLINK_ORACLE_ADDRESS,
   ENS_REGISTRAR_ADDRESS,
@@ -20,13 +19,13 @@ import {
   TIMELOCK_ADDRESS,
   WNATIVE_ADDRESS,
 } from '@sushiswap/core-sdk'
-import { LIMIT_ORDER_HELPER_ADDRESS, STOP_LIMIT_ORDER_ADDRESS } from '@sushiswap/limit-order-sdk'
-import MISO from '@sushiswap/miso/exports/all.json'
-import { PoolType } from '@sushiswap/tines'
-import ConstantProductPoolArtifact from '@sushiswap/trident/artifacts/contracts/pool/constant-product/ConstantProductPool.sol/ConstantProductPool.json'
-import TRIDENT from '@sushiswap/trident/exports/all.json'
+// import { LIMIT_ORDER_HELPER_ADDRESS, STOP_LIMIT_ORDER_ADDRESS } from '@sushiswap/limit-order-sdk'
+// import MISO from '@sushiswap/miso/exports/all.json'
+// import { PoolType } from '@sushiswap/tines/dist/in'
+// import ConstantProductPoolArtifact from '@sushiswap/trident/artifacts/contracts/pool/constant-product/ConstantProductPool.sol/ConstantProductPool.json'
+import TRIDENT from '@sushiswap/trident/exports/exports.json'
 import { Pool } from '@sushiswap/trident-sdk'
-import { GACHA_ADDRESS,MULTI_TRANSFER_ADDRESS, MULTICALL2_ADDRESS, NFT_MARKETPLACE_ADDRESS } from 'app/config/address'
+import { GACHA_ADDRESS, MULTI_TRANSFER_ADDRESS, MULTICALL2_ADDRESS, NFT_MARKETPLACE_ADDRESS } from 'app/config/address'
 import { OLD_FARMS } from 'app/config/farms'
 import {
   ARGENT_WALLET_DETECTOR_ABI,
@@ -70,7 +69,6 @@ import UNI_FACTORY_ABI from 'app/constants/abis/uniswap-v2-factory.json'
 import IUniswapV2PairABI from 'app/constants/abis/uniswap-v2-pair.json'
 import WETH9_ABI from 'app/constants/abis/weth.json'
 import ZENKO_ABI from 'app/constants/abis/zenko.json'
-import { poolEntityMapper } from 'app/features/trident/poolEntityMapper'
 import { getContract } from 'app/functions'
 import { useActiveWeb3React } from 'app/services/web3'
 import { useMemo } from 'react'
@@ -240,13 +238,19 @@ export function useMeowshiContract(withSignerIfPossible?: boolean): Contract | n
 export function useLimitOrderContract(withSignerIfPossibe?: boolean): Contract | null {
   const { chainId } = useActiveWeb3React()
   // @ts-ignore TYPE NEEDS FIXING
-  return useContract(STOP_LIMIT_ORDER_ADDRESS[chainId], LIMIT_ORDER_ABI, withSignerIfPossibe)
+  // return useContract(STOP_LIMIT_ORDER_ADDRESS[chainId], LIMIT_ORDER_ABI, withSignerIfPossibe)
+  return useContract(undefined, LIMIT_ORDER_ABI, withSignerIfPossible)
 }
 
 export function useLimitOrderHelperContract(withSignerIfPossible?: boolean): Contract | null {
   const { chainId } = useActiveWeb3React()
+  // return useContract(
+  //   chainId ? LIMIT_ORDER_HELPER_ADDRESS[chainId] : undefined,
+  //   LIMIT_ORDER_HELPER_ABI,
+  //   withSignerIfPossible
+  // )
   return useContract(
-    chainId ? LIMIT_ORDER_HELPER_ADDRESS[chainId] : undefined,
+    undefined,
     LIMIT_ORDER_HELPER_ABI,
     withSignerIfPossible
   )
@@ -270,12 +274,13 @@ export function useTridentMigrationContract() {
 
 export function useTridentPoolContract(pool?: Pool, withSignerIfPossible?: boolean) {
   let artifact
-  if (pool && poolEntityMapper(pool) === PoolType.ConstantProduct) artifact = ConstantProductPoolArtifact
-  if (pool && poolEntityMapper(pool) !== PoolType.ConstantProduct) {
-    throw new Error('Implement new pool type')
-  }
+  // if (pool && poolEntityMapper(pool) === PoolType.ConstantProduct) artifact = ConstantProductPoolArtifact
+  // if (pool && poolEntityMapper(pool) !== PoolType.ConstantProduct) {
+  //   throw new Error('Implement new pool type')
+  // }
 
-  return useContract(pool?.liquidityToken.address ?? undefined, artifact?.abi, withSignerIfPossible)
+  // return useContract(pool?.liquidityToken.address ?? undefined, artifact?.abi, withSignerIfPossible)
+  return useContract(pool?.liquidityToken.address ?? undefined, undefined, withSignerIfPossible)
 }
 
 export function useTridentRouterContract(withSignerIfPossible?: boolean): Contract | null {
@@ -309,8 +314,9 @@ export function useStablePoolFactory(withSignerIfPossible?: boolean): Contract |
 export function useMisoHelperContract(withSignerIfPossible = true): Contract | null {
   const { chainId } = useActiveWeb3React()
   // @ts-ignore TYPE NEEDS FIXING
-  const factory = MISO[chainId]?.[CHAIN_KEY[chainId]]?.contracts.MISOHelper
-  return useContract(factory?.address, MISO_HELPER_ABI, withSignerIfPossible)
+  // const factory = MISO[chainId]?.[CHAIN_KEY[chainId]]?.contracts.MISOHelper
+  // return useContract(factory?.address, MISO_HELPER_ABI, withSignerIfPossible)
+  return useContract(undefined, MISO_HELPER_ABI, withSignerIfPossible)
 }
 
 export function useSushiRollContract(version: 'v1' | 'v2' = 'v2'): Contract | null {

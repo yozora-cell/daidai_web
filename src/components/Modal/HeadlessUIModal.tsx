@@ -61,7 +61,7 @@ const HeadlessUiModal: HeadlessUiModalType<Props> = ({ children: childrenProp, t
       typeof triggerProp === 'function'
         ? triggerProp({ onClick, open, setOpen })
         : isValidElement(triggerProp)
-        ? cloneElement(triggerProp, { onClick })
+        ? cloneElement(triggerProp as React.ReactElement<{ onClick?: () => void }>, { onClick })
         : null,
     [onClick, open, triggerProp]
   )

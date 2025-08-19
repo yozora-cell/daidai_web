@@ -100,6 +100,7 @@ const AssetInput: AssetInput<AssetInputProps> = ({
                 selectedCurrency={props.currency}
                 // @ts-ignore TYPE NEEDS FIXING
                 onCurrencySelect={props.onSelect}
+                // @ts-ignore TYPE NEEDS FIXING
                 miss={() => setOpen(false)}
                 currencyList={props.currencies}
               />

@@ -17,7 +17,7 @@ export interface Column {
 }
 
 interface TableProps<T> {
-  columns: Column[]
+  columns: any[]
   data: T[]
   columnsHideable?: string[]
   defaultSortBy: {

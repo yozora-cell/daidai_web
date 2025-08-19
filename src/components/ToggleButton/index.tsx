@@ -1,6 +1,6 @@
 import { RadioGroup as HeadlessRadioGroup } from '@headlessui/react'
 import Button, { ButtonProps } from 'app/components/Button'
-import { Children, cloneElement, ComponentProps, FC, Fragment, isValidElement } from 'react'
+import { Children, cloneElement, ComponentProps, FC, Fragment, isValidElement, ReactElement } from 'react'
 
 import { classNames } from '../../functions'
 
@@ -47,7 +47,8 @@ const ToggleButtonGroup: ToggleButtonGroup<Props> = ({
     >
       {Children.map(children, (child) => {
         if (isValidElement(child)) {
-          return cloneElement(child, {
+          // Add a type assertion here to inform TypeScript about the possible props
+          return cloneElement(child as ReactElement<ButtonProps>, {
             variant,
             size,
             style: { width: `calc(100% / ${Children.toArray(children).length})` },
@@ -61,13 +62,12 @@ const ToggleButtonGroup: ToggleButtonGroup<Props> = ({
 }
 
 type ToggleButtonProps = ComponentProps<typeof HeadlessRadioGroup.Option>
-ToggleButtonGroup.Button = ({ value, children, size, style, className }: ToggleButtonProps) => {
+ToggleButtonGroup.Button = ({ value, children, style, className }: ToggleButtonProps) => {
   return (
     <HeadlessRadioGroup.Option value={value} as={Fragment}>
       {({ checked }) => (
         <Button
           style={style}
-          size={size}
           id={`radio-option-${value}`}
           variant={checked ? 'filled' : 'empty'}
           color={checked ? 'primary' : 'secondary'}

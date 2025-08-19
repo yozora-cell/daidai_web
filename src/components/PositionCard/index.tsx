@@ -202,7 +202,7 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
               </div>
             )} */}
             <div className="flex items-center justify-between">
-              <div>{i18n._(t`Pooled ${currency0?.symbol}`)}:</div>
+              <div>{i18n._(t`Pooled ${currency0?.symbol ?? ''}`)}:</div>
               {token0Deposited ? (
                 <div className="flex items-center space-x-2">
                   <div className="font-semibold">{token0Deposited?.toSignificant(6)}</div>
@@ -214,7 +214,7 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
             </div>
 
             <div className="flex items-center justify-between">
-              <div>{i18n._(t`Pooled ${currency1?.symbol}`)}:</div>
+              <div>{i18n._(t`Pooled ${currency1?.symbol ?? ''}`)}:</div>
               {token1Deposited ? (
                 <div className="flex items-center space-x-2">
                   <div className="font-semibold ">{token1Deposited?.toSignificant(6)}</div>

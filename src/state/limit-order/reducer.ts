@@ -70,7 +70,6 @@ const initialState: LimitOrderState = {
 export default createReducer<LimitOrderState>(initialState, (builder) =>
   builder
     .addCase(
-      // @ts-ignore TYPE NEEDS FIXING
       replaceLimitOrderState,
       (
         state,
@@ -86,17 +85,17 @@ export default createReducer<LimitOrderState>(initialState, (builder) =>
             orderExpiration,
           },
         }
-      ) => ({
-        inputCurrencyId,
-        outputCurrencyId,
-        independentField,
-        typedValue: typedValue,
-        recipient,
-        fromBentoBalance,
-        limitPrice,
-        orderExpiration,
-        limitOrderApprovalPending: state.limitOrderApprovalPending,
-      })
+      ) => {
+        state.inputCurrencyId = inputCurrencyId
+        state.outputCurrencyId = outputCurrencyId
+        state.typedField = independentField
+        state.typedValue = typedValue
+        state.recipient = recipient
+        state.fromBentoBalance = fromBentoBalance
+        state.limitPrice = limitPrice
+        state.orderExpiration = orderExpiration
+        // preserve other state properties
+      }
     )
     .addCase(setLimitPrice, (state, { payload: limitPrice }) => {
       // @ts-ignore TYPE NEEDS FIXING

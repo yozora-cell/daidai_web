@@ -1,6 +1,6 @@
 import { Interface } from '@ethersproject/abi'
 import { Currency, CurrencyAmount, JSBI } from '@sushiswap/core-sdk'
-import HybridPoolArtifact from '@sushiswap/trident/artifacts/contracts/pool/hybrid/HybridPool.sol/HybridPool.json'
+import HybridPoolArtifact from '@sushiswap/trident/artifacts/contracts/pool/constant-product/ConstantProductPool.sol/ConstantProductPool.json'
 import { computeHybridPoolAddress, Fee, HybridPool } from '@sushiswap/trident-sdk'
 import { PoolAtomType } from 'app/features/trident/types'
 import { useStablePoolFactory } from 'app/hooks/useContract'
@@ -41,13 +41,13 @@ export function useTridentStablePools(
         a &&
         hybridPoolFactory?.address
         ? computeHybridPoolAddress({
-            factoryAddress: hybridPoolFactory.address,
-            tokenA,
-            tokenB,
-            fee,
-            // TODO: Jack - work out what this number is
-            a,
-          })
+          factoryAddress: hybridPoolFactory.address,
+          tokenA,
+          tokenB,
+          fee,
+          // TODO: Jack - work out what this number is
+          a,
+        })
         : undefined
     })
   }, [pools, chainId])

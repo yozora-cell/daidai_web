@@ -11,11 +11,9 @@ type SwitchProps = ComponentProps<typeof HeadlessUiSwitch> & {
   id?: string
 }
 
-const COLOR = {
-  // @ts-ignore TYPE NEEDS FIXING
-  default: (checked) => (checked ? 'bg-high-emphesis' : 'bg-high-emphesis'),
-  // @ts-ignore TYPE NEEDS FIXING
-  gradient: (checked) => (checked ? 'bg-gradient-to-r from-blue to-pink' : 'bg-dark-700'),
+const COLOR: Record<SwitchColor, (checked: boolean) => string> = {
+  default: (checked: boolean) => (checked ? 'bg-high-emphesis' : 'bg-high-emphesis'),
+  gradient: (checked: boolean) => (checked ? 'bg-gradient-to-r from-blue to-pink' : 'bg-dark-700'),
 }
 
 const HEIGHT = {
@@ -55,7 +53,7 @@ const Switch: FC<SwitchProps> = ({
         id={id}
         className={classNames(
           checked ? 'translate-x-[30px]' : 'translate-x-[2px]',
-          COLOR[color](checked),
+          COLOR[color as SwitchColor](!!checked),
           `transition-colors transition-transform pointer-events-none p-1 rounded-full shadow-md ease-in-out duration-200 inline-flex items-center justify-center`
         )}
         style={{ height: height - 6, width: height - 6, transform: `translate(${checked ? 30 : 2}, 0)` }}

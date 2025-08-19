@@ -1,5 +1,6 @@
 import { JSBI, Percent, Token } from '@sushiswap/core-sdk'
-import { LAMBDA_URL, LimitOrder, OrderStatus } from '@sushiswap/limit-order-sdk'
+import { LimitOrder } from '@sushiswap/sdk'
+// import { LAMBDA_URL, LimitOrder, OrderStatus } from '@sushiswap/limit-order-sdk'
 import { useActiveWeb3React } from 'app/services/web3'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import useSWR, { SWRResponse } from 'swr'
@@ -28,14 +29,16 @@ interface OpenOrder {
   tokenIn: Token
   tokenOut: Token
   filledPercent: string
-  limitOrder: LimitOrder
-  status: OrderStatus
+  limitOrder: any
+  status: any
   rate: string
 }
 
 const denominator = (decimals: number = 18) => JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(decimals))
 
-const viewUrl = `${LAMBDA_URL}/orders/view`
+// const viewUrl = `${LAMBDA_URL}/orders/view`
+const viewUrl = `https://api.thegraph.com/subgraphs/name/sushiswap/uniswap-v2/orders/view`
+
 // @ts-ignore TYPE NEEDS FIXING
 const viewFetcher = (url, account, chainId, pendingPage, page) => {
   return fetch(url, {
@@ -140,33 +143,33 @@ const useLimitOrders = () => {
       return openOrder as OpenOrder
     }
 
-    ;(async () => {
-      const openOrders = await Promise.all<OpenOrder>(
-        // @ts-ignore TYPE NEEDS FIXING
-        ordersData.pendingOrders.orders.map((el, i) =>
-          transform({ ...el, filledAmount: ordersData.pendingOrders.filledAmounts[i] })
+      ; (async () => {
+        const openOrders = await Promise.all<OpenOrder>(
+          // @ts-ignore TYPE NEEDS FIXING
+          ordersData.pendingOrders.orders.map((el, i) =>
+            transform({ ...el, filledAmount: ordersData.pendingOrders.filledAmounts[i] })
+          )
         )
-      )
-      // @ts-ignore TYPE NEEDS FIXING
-      const completedOrders = await Promise.all<OpenOrder>(ordersData.otherOrders.orders.map((el) => transform(el)))
+        // @ts-ignore TYPE NEEDS FIXING
+        const completedOrders = await Promise.all<OpenOrder>(ordersData.otherOrders.orders.map((el) => transform(el)))
 
-      setState((prevState) => ({
-        pending: {
-          ...prevState.pending,
-          data: openOrders,
-          maxPages: ordersData.pendingOrders.pendingOrderMaxPage,
-          loading: false,
-          totalOrders: ordersData.pendingOrders.totalPendingOrders,
-        },
-        completed: {
-          ...prevState.completed,
-          data: completedOrders,
-          maxPages: ordersData.otherOrders.maxPage,
-          loading: false,
-          totalOrders: ordersData.otherOrders.totalOrders,
-        },
-      }))
-    })()
+        setState((prevState) => ({
+          pending: {
+            ...prevState.pending,
+            data: openOrders,
+            maxPages: ordersData.pendingOrders.pendingOrderMaxPage,
+            loading: false,
+            totalOrders: ordersData.pendingOrders.totalPendingOrders,
+          },
+          completed: {
+            ...prevState.completed,
+            data: completedOrders,
+            maxPages: ordersData.otherOrders.maxPage,
+            loading: false,
+            totalOrders: ordersData.otherOrders.totalOrders,
+          },
+        }))
+      })()
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [account, chainId, ordersData, limitOrderContract, setPendingPage, setCompletedPage])

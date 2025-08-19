@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 import Typography from 'app/components/Typography'
 import defaultImg from 'app/config/default_img'
 import { classNames, isImage } from 'app/functions'

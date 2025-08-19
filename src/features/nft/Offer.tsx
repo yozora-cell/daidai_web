@@ -16,8 +16,8 @@ import { useBalancesNoZero } from 'app/state/wallet/hooks'
 // import useDebounce from 'app/hooks/useDebounce'
 import { NFTDetail, NFTItemStage, Offer721, OfferItem } from 'app/types/daidai'
 import { Fragment, useEffect, useMemo, useState } from 'react'
-import DatePicker from 'react-datepicker'
 
+// import DatePicker from 'react-datepicker'
 import ApprovalToken from './ApprovalToken'
 import Info from './Info'
 
@@ -587,7 +587,7 @@ const OfferContent = ({
                 </Typography>
               </div>
               <div className="mt-4">
-                <DatePicker
+                {/* <DatePicker
                   selected={expiration}
                   onChange={(date: Date) => {
                     setExpiration(date)
@@ -607,7 +607,7 @@ const OfferContent = ({
 
                     return currentDate.getTime() < selectedDate.getTime()
                   }}
-                />
+                /> */}
               </div>
               <div>
                 {isDateError && (

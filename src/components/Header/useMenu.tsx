@@ -89,7 +89,7 @@ const useMenu: UseMenu = () => {
         title: i18n._(t`Gacha`),
         link: `/gacha`,
       })
-    }    
+    }
 
     if (account) {
       menu.push({
@@ -163,7 +163,7 @@ const useMenu: UseMenu = () => {
 
     return menu.filter((el) => Object.keys(el).length > 0)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [account, chainId, i18n, isDesktop, i18n._locale])
+  }, [account, chainId, i18n, isDesktop, i18n.locale])
 }
 
 export default useMenu

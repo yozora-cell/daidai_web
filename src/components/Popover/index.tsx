@@ -2,7 +2,7 @@ import { Popover as HeadlessuiPopover } from '@headlessui/react'
 import { Placement } from '@popperjs/core'
 import { classNames } from 'app/functions'
 import useInterval from 'app/hooks/useInterval'
-import React, { Fragment, useCallback, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useState } from 'react'
 // @ts-ignore TYPE NEEDS FIXING
 import ReactDOM from 'react-dom'
 import { usePopper } from 'react-popper'
@@ -35,6 +35,12 @@ export default function Popover({ content, children, placement = 'auto', show, m
 
   useInterval(updateCallback, show ? 100 : null)
 
+  const [portalNode, setPortalNode] = useState<Element | null>(null)
+
+  useEffect(() => {
+    setPortalNode(document.querySelector('#popover-portal'))
+  }, [])
+
   return (
     <HeadlessuiPopover as={Fragment}>
       {({ open }) => (
@@ -47,6 +53,7 @@ export default function Popover({ content, children, placement = 'auto', show, m
             )
           })}
           {(show ?? open) &&
+            portalNode && // <-- Add this check
             ReactDOM.createPortal(
               <HeadlessuiPopover.Panel
                 static
@@ -63,7 +70,7 @@ export default function Popover({ content, children, placement = 'auto', show, m
                   {...attributes.arrow}
                 />
               </HeadlessuiPopover.Panel>,
-              document.querySelector('#popover-portal')
+              portalNode // <-- Use the state variable
             )}
         </>
       )}

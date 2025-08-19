@@ -22,8 +22,10 @@ export function useTokenListOnlyToken(): Token[] {
 export function getTokenAddress(token: Currency): string {
   if (token.isNative) {
     return AddressZero
+  } else if ('address' in token) {
+    return (token as Token).address
   } else {
-    return token.address
+    throw new Error('Token does not have an address property')
   }
 }
 
@@ -40,7 +42,9 @@ export function useTokenByAddressCallback() {
         })
       }
       return tokenList.find((token) => {
-        return !token.isNative && token.address.toLocaleLowerCase() === address.toLocaleLowerCase()
+        return !token.isNative &&
+          token instanceof Token &&
+          token.address.toLocaleLowerCase() === address.toLocaleLowerCase()
       })
     },
     [tokenList]

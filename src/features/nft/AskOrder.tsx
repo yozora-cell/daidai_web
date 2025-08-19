@@ -14,8 +14,8 @@ import { getTokenAddress, useTokenByAddressCallback, useTokenList } from 'app/st
 // import useDebounce from 'app/hooks/useDebounce'
 import { Listing721, NFTDetail, NFTItemStage } from 'app/types/daidai'
 import { Fragment, useEffect, useMemo, useState } from 'react'
-import DatePicker from 'react-datepicker'
 
+// import DatePicker from 'react-datepicker'
 import Info from './Info'
 
 const AskOrder = ({
@@ -470,7 +470,7 @@ const AskOrder = ({
                 </Typography>
               </div>
               <div className="mt-4">
-                <DatePicker
+                {/* <DatePicker
                   selected={expiration}
                   onChange={(date: Date) => {
                     setExpiration(date)
@@ -490,7 +490,7 @@ const AskOrder = ({
 
                     return currentDate.getTime() < selectedDate.getTime()
                   }}
-                />
+                /> */}
               </div>
               <div>
                 {isDateError && (

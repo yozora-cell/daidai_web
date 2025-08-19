@@ -30,10 +30,9 @@ import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
-// import Script from 'next/script'
 import { DefaultSeo } from 'next-seo'
 import React, { Fragment, useEffect } from 'react'
-import { Provider as ReduxProvider } from 'react-redux'
+import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { SWRConfig } from 'swr'
 
@@ -109,7 +108,7 @@ function MyApp({ Component, pageProps, fallback, err }) {
   }, [locale])
 
   // Allows for conditionally setting a provider to be hoisted per page
-  const Provider = Component.Provider || Fragment
+  const PageProvider = Component.Provider || Fragment
 
   // Allows for conditionally setting a layout to be hoisted per page
   const Layout = Component.Layout || DefaultLayout
@@ -140,11 +139,13 @@ function MyApp({ Component, pageProps, fallback, err }) {
           `,
         }}
       />
-      <I18nProvider i18n={i18n} forceRenderOnLocaleChange={false}>
+
+      <I18nProvider i18n={i18n}>
         <Web3ReactProvider getLibrary={getLibrary}>
           <Web3ProviderNetwork getLibrary={getLibrary}>
             <Web3ReactManager>
-              <ReduxProvider store={store}>
+              {/*@ts-ignore TYPE NEEDS FIXING*/}
+              <Provider store={store}>
                 <PersistGate loading={<Dots>loading</Dots>} persistor={persistor}>
                   <>
                     {/* <ListsUpdater /> */}
@@ -157,7 +158,7 @@ function MyApp({ Component, pageProps, fallback, err }) {
                     <AuthUpdater />
                     <SignatureUpdater />
                   </>
-                  <Provider>
+                  <PageProvider>
                     <Layout>
                       <Guard>
                         {/* TODO: Added alert Jan 25. Delete component after a few months. */}
@@ -175,9 +176,9 @@ function MyApp({ Component, pageProps, fallback, err }) {
                       </Guard>
                       <Portals />
                     </Layout>
-                  </Provider>
+                  </PageProvider>
                 </PersistGate>
-              </ReduxProvider>
+              </Provider>
             </Web3ReactManager>
           </Web3ProviderNetwork>
         </Web3ReactProvider>

@@ -1,7 +1,7 @@
 import { Transition } from '@headlessui/react'
-import Typography from 'app/components/Typography'
+// import Typograclearphy from 'app/components/Typography'
 import { classNames } from 'app/functions'
-import { FC, forwardRef, Key } from 'react'
+import { forwardRef, Key } from 'react'
 import ReactSlider, { ReactSliderProps } from 'react-slider'
 
 const Track = (props: any) => {
@@ -47,10 +47,14 @@ interface Slider extends ReactSliderProps {
   markFormatter(x?: Key | null): string
 }
 
-const Slider: FC<Slider> = forwardRef<ReactSlider, Slider>(({ markFormatter, ...props }, ref) => {
+interface SliderProps extends ReactSliderProps {
+  markFormatter(x?: Key | null): string
+}
+
+const Slider = forwardRef<ReactSlider, SliderProps>(({ markFormatter, ...props }, ref) => {
   return (
     <div className="relative w-full h-5">
-      <ReactSlider
+      {/* <ReactSlider
         {...props}
         ref={ref}
         renderThumb={Thumb}
@@ -62,9 +66,29 @@ const Slider: FC<Slider> = forwardRef<ReactSlider, Slider>(({ markFormatter, ...
             </Typography>
           )
         }}
-      />
+      /> */}
     </div>
   )
 })
+
+// const Slider: FC<Slider> = forwardRef<ReactSlider, Slider>(({ markFormatter, ...props }, ref) => {
+//   return (
+//     <div className="relative w-full h-5">
+//       <ReactSlider
+//         {...props}
+//         ref={ref}
+//         renderThumb={Thumb}
+//         renderTrack={Track}
+//         renderMark={({ key, style }) => {
+//           return (
+//             <Typography style={style} variant="xxs" key={key} className="mt-4 text-secondary" component="span">
+//               {markFormatter(key)}
+//             </Typography>
+//           )
+//         }}
+//       />
+//     </div>
+//   )
+// })
 
 export default Slider

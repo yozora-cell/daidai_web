@@ -43,14 +43,14 @@ export function ConfirmAddModalBottom({
       <div className="h-px my-6 bg-gray-700" />
       <div className="grid gap-1 pb-6">
         <div className="flex items-center justify-between">
-          <div className="text-sm text-secondary">{i18n._(t`${currencies[Field.CURRENCY_A]?.symbol} Deposited`)}</div>
+          <div className="text-sm text-secondary">{i18n._(t`${currencies[Field.CURRENCY_A]?.symbol ?? ''} Deposited`)}</div>
           <div className="text-sm font-bold justify-center items-center flex right-align pl-1.5 text-info">
             <div>{parsedAmounts[Field.CURRENCY_A]?.toSignificant(6)}</div>
             <span className="ml-1">{parsedAmounts[Field.CURRENCY_A]?.currency.symbol}</span>
           </div>
         </div>
         <div className="flex items-center justify-between">
-          <div className="text-sm text-secondary">{i18n._(t`${currencies[Field.CURRENCY_B]?.symbol} Deposited`)}</div>
+          <div className="text-sm text-secondary">{i18n._(t`${currencies[Field.CURRENCY_B]?.symbol ?? ''} Deposited`)}</div>
           <div className="text-sm font-bold justify-center items-center flex right-align pl-1.5 text-info">
             <div>{parsedAmounts[Field.CURRENCY_B]?.toSignificant(6)}</div>
             <span className="ml-1">{parsedAmounts[Field.CURRENCY_B]?.currency.symbol}</span>
