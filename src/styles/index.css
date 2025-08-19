@@ -1,0 +1,239 @@
+@tailwind base;
+
+@import '@fontsource/dm-sans/index.css';
+@import 'react-virtualized/styles.css';
+@import './variables.css';
+
+@tailwind components;
+
+@tailwind utilities;
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+  touch-action: manipulation;
+  font-feature-settings: 'case' 1, 'rlig' 1, 'calt' 0;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+html,
+body {
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* background-color: var(--primary); */
+  /* color: var(--text-primary); */
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100%;
+}
+
+/* a {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+} */
+
+button:focus {
+  outline: none;
+}
+
+input:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.striped-background {
+  background: repeating-linear-gradient(45deg, #161522, #161522 10px, #0d0415 10px, #0d0415 20px);
+}
+
+/**::-webkit-scrollbar {*/
+/*  width: var(--scrollbar-width);*/
+/*}*/
+
+/*::-webkit-scrollbar-track-piece:start {*/
+/*  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAQAAAAD+Fb1AAAADklEQVR42mNkgAJG3AwAAH4ABWjFc8IAAAAASUVORK5CYII=) repeat-y !important;*/
+/*}*/
+
+/*::-webkit-scrollbar-track-piece:end {*/
+/*  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAQAAAAD+Fb1AAAADklEQVR42mNkgAJG3AwAAH4ABWjFc8IAAAAASUVORK5CYII=) repeat-y !important;*/
+/*}*/
+
+/**::-webkit-scrollbar-thumb {*/
+/*  border: 3px solid rgba(0, 0, 0, 0);*/
+/*  background-clip: padding-box;*/
+/*  border-radius: 9999px;*/
+/*  background-color: #BFBFBF;*/
+/*}*/
+
+input[type=datetime-local]::-webkit-calendar-picker-indicator {
+  background-image: url('../../public/images/datepicker-icon.svg')
+}
+
+/* if backdrop support: very transparent and blurred */
+@supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+  .backdrop-blur-fallback {
+    background-color: var(--primary);
+  }
+}
+
+
+.hide-scrollbar {
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+.webkit-mask {
+  -webkit-mask: linear-gradient(rgb(255, 255, 255), transparent);
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: hsl(var(--p) / var(--tw-text-opacity)) !important;
+  height: 60px !important;
+  width: 60px !important;
+  --tw-bg-opacity: 1 !important;
+  background-color: hsl(var(--b1) / var(--tw-bg-opacity)) !important;
+  border-radius: 100% !important;
+  --tw-border-opacity: 1 !important;
+  border-color: hsl(var(--b3, var(--b2)) / var(--tw-border-opacity)) !important;
+  border-width: 1px;
+}
+
+.swiper-button-prev {
+  left: 0px !important;
+}
+
+.swiper-button-next {
+  right: 0px !important;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 24px !important;
+}
+
+.my-countdownspan::before {
+  z-index: 1 !important;
+}
+
+.my-countdownspan--static::before {
+  content: '' !important;
+}
+
+.react-datepicker__input-container input {
+  @apply input input-bordered !important
+}
+
+.react-datepicker-popper {
+  @apply z-40 text-sm bg-base-100 shadow px-3 py-2 border-2 border-base-200 rounded !important
+}
+
+.react-datepicker-left {
+  @apply absolute left-0 right-auto top-11 transform-none !important
+}
+
+.react-datepicker-right {
+  @apply absolute right-0 left-auto top-11 transform-none !important
+}
+
+.react-datepicker__portal {
+  @apply absolute z-10 w-72 text-sm transform-none bg-base-100 shadow px-3 py-2 top-12 right-0 border-2 border-gray-200 rounded !important
+}
+
+.react-datepicker__month-container {
+  @apply flex flex-col !important
+}
+
+.react-datepicker__month {
+  @apply flex flex-col !important
+}
+
+.react-datepicker__current-month {
+  @apply ml-2.5 text-lg font-semibold text-gray-800 !important
+}
+
+.react-datepicker__week {
+  @apply flex justify-around !important
+}
+
+.react-datepicker__day-names {
+  @apply flex justify-around text-gray-400 font-medium text-center text-xs !important
+}
+
+.react-datepicker__day-name {
+  @apply w-8 h-8 flex items-center justify-center py-1 rounded-full !important
+}
+
+.react-datepicker__navigation {
+  @apply absolute top-2 !important
+}
+
+.react-datepicker__navigation--previous {
+  @apply right-12 w-8 h-8 rounded transition flex items-center justify-center hover:bg-gray-200 !important
+}
+
+.react-datepicker__navigation--next {
+  @apply right-4 w-8 h-8 rounded transition flex items-center justify-center hover:bg-gray-200 !important
+}
+
+.react-datepicker__day {
+  @apply mb-1 w-8 h-8 flex items-center justify-center py-1 text-sm leading-loose transition text-gray-700 rounded !important
+}
+
+.react-datepicker__day--disabled {
+  @apply cursor-not-allowed opacity-40 hover:bg-transparent !important
+}
+
+.react-datepicker__day--outside-month {
+  @apply text-gray-300 !important
+}
+
+.react-datepicker__day--in-range {
+  @apply bg-gray-200 !important
+}
+
+.react-datepicker__day--in-selecting-range {
+  @apply bg-blue-200 !important
+}
+
+.react-datepicker__day--selecting-range-start {
+  @apply bg-base-100 border-2 border-info !important
+}
+
+.react-datepicker__day--selecting-range-end {
+  @apply bg-base-100 border-2 border-info !important
+}
+
+.react-datepicker__day--selected {
+  @apply bg-info text-base-100 !important
+}
+
+.react-datepicker__day--range-start {
+  @apply bg-info text-base-100 hover:text-gray-700 hover:bg-base-100 !important
+}
+
+.react-datepicker__day--range-end {
+  @apply bg-info text-base-100 hover:text-gray-700 hover:bg-base-100 !important
+}

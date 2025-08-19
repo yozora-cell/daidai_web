@@ -1,0 +1,15 @@
+version: '3'
+services:
+  nextjs:
+    build: ./
+    networks:
+      - frontend
+  nginx:
+    build: ./nginx
+    ports:
+      - 6688:80
+    networks:
+      - frontend
+networks:
+  frontend:
+    name: daidaiioweb_network

@@ -1,0 +1,10 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+. "$(dirname "$0")/common.sh"
+
+cd ./web
+
+yarn lint
+yarn lint-staged
+yarn lingui
+# yarn test
